@@ -1329,6 +1329,11 @@ end
 ----------------------------------------------
 
 local function AutoFarmSec()
+        AutoFarmConfig:Cheat("Checkbox","💅 Auto Join  ", function(bool)
+        print(bool)
+        Settings.autojoin = bool
+        saveSettings()
+    end,{enabled = Settings.autojoin })
 
     AutoFarmConfig:Cheat("Checkbox","🌾 Auto Start  ", function(bool)
         print(bool)
@@ -4424,6 +4429,7 @@ local function startfarming()
             elseif tostring(game.Workspace._LOBBIES.Story[getgenv().door].Owner.Value) ~= plr.Name then
                 for i, v in pairs(game:GetService("Workspace")["_LOBBIES"].Story:GetDescendants()) do
                     if v.Name == "Owner" and v.Value == nil then
+                  if  Settings.autojoin then
                         local args = { [1] = tostring(v.Parent.Name) }
                         game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
     
@@ -4445,6 +4451,7 @@ local function startfarming()
                         break
                     end
                 end
+               end
     
                 task.wait()
     
@@ -4480,6 +4487,7 @@ local function startfarming()
             elseif tostring(game.Workspace._RAID.Raid[getgenv().door].Owner.Value) ~= plr.Name then
                 for i, v in pairs(game:GetService("Workspace")["_RAID"].Raid:GetDescendants()) do
                     if v.Name == "Owner" and v.Value == nil then
+                    if  Settings.autojoin then
                         local args = { [1] = tostring(v.Parent.Name) }
                         game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
     
@@ -4501,6 +4509,7 @@ local function startfarming()
                         break
                     end
                 end
+              end
     
                 task.wait()
     
@@ -4539,6 +4548,7 @@ local function startfarming()
             if tostring(game.Workspace._DUNGEONS.Lobbies[getgenv().door].Owner.Value) ~= plr.Name then
                 for i, v in pairs(game:GetService("Workspace")["_DUNGEONS"].Lobbies:GetDescendants()) do
                     if v.Name == "Owner" and v.Value == nil then
+                    if  Settings.autojoin then
                         local args = { [1] = tostring(v.Parent.Name) }
                         game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
     
@@ -4561,6 +4571,7 @@ local function startfarming()
                         break
                     end
                 end
+              end
     
                 task.wait()
     
@@ -4597,6 +4608,7 @@ local function startfarming()
                 if tostring(game.Workspace._DUNGEONS.Lobbies[getgenv().door].Owner.Value) ~= plr.Name then
                     for i, v in pairs(game:GetService("Workspace")["_DUNGEONS"].Lobbies:GetDescendants()) do
                         if v.Name == "Owner" and v.Value == nil then
+                        if  Settings.autojoin then
                             local args = { [1] = tostring(v.Parent.Name) }
                             game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
         
@@ -4619,6 +4631,7 @@ local function startfarming()
                             break
                         end
                     end
+                   end
         
                     task.wait()
         
@@ -4662,6 +4675,7 @@ local function startfarming()
                 if tostring(game.Workspace._DUNGEONS.Lobbies[getgenv().door].Owner.Value) ~= plr.Name then
                     for i, v in pairs(game:GetService("Workspace")["_DUNGEONS"].Lobbies:GetDescendants()) do
                         if v.Name == "Owner" and v.Value == nil then
+                       if  Settings.autojoin then
                             local args = { [1] = tostring(v.Parent.Name) }
                             game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
         
@@ -4684,6 +4698,7 @@ local function startfarming()
                             break
                         end
                     end
+                  end
         
                     task.wait()
         
@@ -4707,8 +4722,6 @@ local function startfarming()
                     task.wait(1)
                 end
             end
-
-
                 end
             end
         end
