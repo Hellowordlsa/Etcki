@@ -780,7 +780,7 @@ for i = 1, 6 do
     Unit["AOE"..i] = UA:Sector("Select Unit " .. i .. " Kill")
 end
 
-local UnitAOE = UA:Sector("Config")
+local UnitAOE = UA:Sector("")
 local UnitAOE1 = UA:Sector("Kill Or TakeDown & Check Unit")
 --- End of Unit AOE
 
@@ -1160,6 +1160,8 @@ local function WorldSec()
             levellist = {"jjk_raid"}     
         elseif level == "Halloween Event" then
             levellist = {"namek_halloween"}  
+        elseif level == "Christmas Event" then
+            levellist = {"christmas_map"}  
             --///Secret Portals\\\---   
         elseif level == "Dressrosa Secret Portals" then
             levellist = {"portal_item__doflamingo"}
@@ -2380,20 +2382,6 @@ if Settings.SelectedUnits ~= nil then
         end, { options = { "Off", names[i] }, default = Settings.UnitAOE6 or nil})
     end
     --- End Check Unit
-    Settings.UnitAOE7 = Settings.UnitAOE7 or "femto"
-    UnitAOE:Cheat("Dropdown", " Select Griffin Name ",function(value)
-        warn("Change to : "..value)
-        local StarterGui = game:GetService("StarterGui")
-                StarterGui:SetCore("SendNotification", {
-                    Title = "KILL Unit",
-                    Text = "Change to : "..value,
-                    Duration = 5
-                })
-        Settings.UnitAOE7 = value
-        saveSettings()
-    end, { options = {"None","femto_egg","griffith_reincarnation","femto"}, default =Settings.UnitAOE7})
-
-
 end
 ----------------------------------------------
 ------------------ credits -------------------
@@ -2554,6 +2542,7 @@ function saveposTEST(UnitPos, a,a2,a3,a4,a5,a6)
         if world2 == "uchiha_halloween" then world = "uchiha_hideout_final" end
         if world2 == "entertainment_halloween" then world = "entertainment_district" end
         if world2 == "entertainment_district_halloween" then world = "entertainment_district" end
+        if world2 == "christmas_map" then world = "christmas_map" end
 
 
         updatepos(world, UnitPos, a,a2,a3,a4,a5,a6)
@@ -5795,6 +5784,7 @@ function PlacePos(map,name,_uuid,unit)
         if map2 == "uchiha_halloween" then map = "uchiha_hideout_final" end
         if map2 == "entertainment_halloween" then map = "entertainment_district" end
         if map2 == "entertainment_district_halloween" then map = "entertainment_district" end
+        if map2 == "christmas_map" then map = "christmas_map" end
 
         if Mapname == "Infinity Castle" then map = map2 end
         local pos = Settings[map][unit]
@@ -6258,6 +6248,7 @@ function PlaceUnitsTEST(map,name,_uuid,unit)
     if map2 == "uchiha_halloween" then map = "uchiha_hideout_final" end
     if map2 == "entertainment_halloween" then map = "entertainment_district" end
     if map2 == "entertainment_district_halloween" then map = "entertainment_district" end
+    if map2 == "christmas_map" then map = "christmas_map" end
 
     if Mapname == "Infinity Castle" then map = map2 end
 
@@ -6472,6 +6463,7 @@ function PlaceUnits(map)
                     if map2 == "uchiha_halloween" then map = "uchiha_hideout_final" end
                     if map2 == "entertainment_halloween" then map = "entertainment_district" end
                     if map2 == "entertainment_district_halloween" then map = "entertainment_district" end
+                    if map2 == "christmas_map" then map = "christmas_map" end
 
                     if Mapname == "Infinity Castle" then map = map2 end
                     local unitinfo_ = unitinfo:split(" #")
@@ -6623,6 +6615,7 @@ coroutine.resume(coroutine.create(function()
                 if map2 == "uchiha_halloween" then map = "uchiha_hideout_final" end
                 if map2 == "entertainment_halloween" then map = "entertainment_district" end
                 if map2 == "entertainment_district_halloween" then map = "entertainment_district" end
+                if map2 == "christmas_map" then map = "christmas_map" end
 
                 if Mapname == "Infinity Castle" then map = map2 end
 
@@ -6692,6 +6685,8 @@ coroutine.resume(coroutine.create(function()
                 if map2 == "uchiha_halloween" then map = "uchiha_hideout_final" end
                 if map2 == "entertainment_halloween" then map = "entertainment_district" end
                 if map2 == "entertainment_district_halloween" then map = "entertainment_district" end
+                if map2 == "christmas_map" then map = "christmas_map" end
+                
 
                 if Mapname == "Infinity Castle" then map = map2 end
 
