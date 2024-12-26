@@ -765,9 +765,6 @@ local bkackhole6 = Farm:Sector(" ")
 
 local UC = Window:Category("🧙 Unit Config")
 local NDY = UC:Sector("Beta Unit Config ")
-local NDY2 = UC:Sector(" ")
-local emptyxx = UC:Sector(" ")
-local emptyxx2 = UC:Sector(" ")
 local Unit1 = UC:Sector("Unit 1")
 local Unit2 = UC:Sector("Unit 2")
 local Unit3 = UC:Sector("Unit 3")
@@ -776,23 +773,23 @@ local Unit5 = UC:Sector("Unit 5")
 local Unit6 = UC:Sector("Unit 6")
 
 --- Unit AOE
-local UA = Window:Category("⚔️ INF & KILL")
+local UA = Window:Category("⚔️ Kill")
 
 Unit = {}
 for i = 1, 6 do
-    Unit["AOE"..i] = UA:Sector("Select Unit " .. i .. " Kill or INF Range")
+    Unit["AOE"..i] = UA:Sector("Select Unit " .. i .. " Kill")
 end
 
-local UnitAOE = UA:Sector("INF Range Config ")
+local UnitAOE = UA:Sector("Config")
 local UnitAOE1 = UA:Sector("Kill Or TakeDown & Check Unit")
 --- End of Unit AOE
 
-local LG = Window:Category("🛠️ Misc [BETA]")
+local LG = Window:Category("🛠️ Misc")
 local LowCPU2 = LG:Sector("Low CPU Mode")
 local LowCPU3 = LG:Sector("")
-local LG1 = LG:Sector("Beta LAGGY Config ")
+local LG1 = LG:Sector(" ")
 local DELMAP = LG:Sector("🗺️ New Function 🗺️")
-local DELMAP1 = LG:Sector(" ")
+local DELMAP1 = LG:Sector("")
 local OtherSec = LG:Sector("⌛ Auto Load Script ⌛")
 local OtherSec1 = LG:Sector("")
 local OtherSec3 = LG:Sector("🐱 Hide Name Player 🐱")
@@ -808,7 +805,6 @@ local WebhookSec = ETC:Sector("🌐 Discord Webhook 🌐")
 local OtherSec2 = ETC:Sector("")
 
 local Summer = Window:Category("🦸🏽 Event & Skin ")
-local SummerItem = Summer:Sector("🕵️‍♂️ Item BSD Event 🕵️‍♂️")
 local SummerItem2 = Summer:Sector("🎃 Item Halloween Event 🎃")
 local SummerItem0 = Summer:Sector("")
 local SellPortals = Summer:Sector("🌀 Sell Challenge Portals 🌀")
@@ -1828,17 +1824,6 @@ local function UNITAOEAA()
             end
         end
     end)
-------------------------------------------------------------------------------
-------------------------------------------------------------------------------
---------------------------------inf_Range------------------------------------
-------------------------------------------------------------------------------
-------------------------------------------------------------------------------
-
-    UnitAOE:Cheat("Checkbox","Enable INF Range Unit [ZicZac] ", function(bool)
-        print(bool)
-        Settings.blackhole = bool
-        saveSettings()
-    end,{enabled = Settings.blackhole})
 
     --Unit1
     task.spawn(function()
@@ -2311,7 +2296,7 @@ if Settings.SelectedUnits ~= nil then
             warn("Change to : "..value)
             local StarterGui = game:GetService("StarterGui")
                 StarterGui:SetCore("SendNotification", {
-                    Title = "INF & KILL Unit",
+                    Title = "KILL Unit",
                     Text = "Change to : "..value,
                     Duration = 5
                 })
@@ -2325,7 +2310,7 @@ if Settings.SelectedUnits ~= nil then
             warn("Change to : "..value)
             local StarterGui = game:GetService("StarterGui")
                 StarterGui:SetCore("SendNotification", {
-                    Title = "INF & KILL Unit",
+                    Title = "KILL Unit",
                     Text = "Change to : "..value,
                     Duration = 5
                 })
@@ -2339,7 +2324,7 @@ if Settings.SelectedUnits ~= nil then
             warn("Change to : "..value)
             local StarterGui = game:GetService("StarterGui")
                 StarterGui:SetCore("SendNotification", {
-                    Title = "INF & KILL Unit",
+                    Title = "KILL Unit",
                     Text = "Change to : "..value,
                     Duration = 5
                 })
@@ -2353,7 +2338,7 @@ if Settings.SelectedUnits ~= nil then
             warn("Change to : "..value)
             local StarterGui = game:GetService("StarterGui")
                 StarterGui:SetCore("SendNotification", {
-                    Title = "INF & KILL Unit",
+                    Title = "KILL Unit",
                     Text = "Change to : "..value,
                     Duration = 5
                 })
@@ -2367,7 +2352,7 @@ if Settings.SelectedUnits ~= nil then
             warn("Change to : "..value)
             local StarterGui = game:GetService("StarterGui")
                 StarterGui:SetCore("SendNotification", {
-                    Title = "INF & KILL Unit",
+                    Title = "KILL Unit",
                     Text = "Change to : "..value,
                     Duration = 5
                 })
@@ -2381,7 +2366,7 @@ if Settings.SelectedUnits ~= nil then
             warn("Change to : "..value)
             local StarterGui = game:GetService("StarterGui")
                 StarterGui:SetCore("SendNotification", {
-                    Title = "INF & KILL Unit",
+                    Title = "KILL Unit",
                     Text = "Change to : "..value,
                     Duration = 5
                 })
@@ -2395,7 +2380,7 @@ if Settings.SelectedUnits ~= nil then
         warn("Change to : "..value)
         local StarterGui = game:GetService("StarterGui")
                 StarterGui:SetCore("SendNotification", {
-                    Title = "INF & KILL Unit",
+                    Title = "KILL Unit",
                     Text = "Change to : "..value,
                     Duration = 5
                 })
@@ -2856,10 +2841,6 @@ local function unitconfig()
         saveSettings()
     end,{enabled = Settings.unitconfig })
 
-    NDY2:Cheat("Button", "Reload Script", function()
-        autoload2()
-    end)
-
     --//UNIT 1
     
     Settings.U1_Priority = Settings.U1_Priority or "first"
@@ -3231,157 +3212,7 @@ local function LowCPUModeT()
     LowCPU2:Cheat("Button","Activate Boost FPS Mode ", function()
         FPSBOOST()
     end)
-    
-    
     end
-
----------------------------------------------
--------------- LAGGY Config -----------------
----------------------------------------------
-
-local function LAGGYconfig()
-    LG1:Cheat("Label"," Is a BETA Version // Enjoy ")
-
-    --test New Lag
-LG1:Cheat("Checkbox","Enable Laggy ", function(bool)
-	print(bool)
-	Settings.EnableLag = bool
-	saveSettings()
-end,{enabled = Settings.EnableLag})
-
-task.spawn(function()
-	while task.wait() do
-        local l_wave = game:GetService("Workspace"):WaitForChild("_wave_num")
-		if Settings.EnableLag and tonumber(Settings.LagatWave) <= l_wave.Value then
-            --New Fix isrbxactive
-        local IS_ROBLOX_ACTIVE3 = false
-        local UIS = game:GetService("UserInputService")
-        UIS.WindowFocused:Connect(function()
-            IS_ROBLOX_ACTIVE3 = true
-        end)
-        UIS.WindowFocusReleased:Connect(function()
-            IS_ROBLOX_ACTIVE3 = false
-        end)
-        function isrbxactive3()
-            return IS_ROBLOX_ACTIVE3
-        end
-        getgenv().isrbxactive3 = newcclosure(isrbxactive3)
-        
-        setfpscap(2)
-        isrbxactive3(true)
-        --End fix isrbxactive
-
-    delaylag = tonumber(Settings.delag or 1.5)
-    while wait(tonumber(Settings.delag or 1.5)) do --// don't change it's the best
-    game:GetService("NetworkClient"):SetOutgoingKBPSLimit(math.huge * math.huge)
-    local function getmaxvalue(val)
-       --local mainvalueifonetable = 499999
-       local mainvalueifonetable = tonumber(Settings.lagimpact or 499999)
-       if type(val) ~= "number" then
-           return nil
-       end
-       local calculateperfectval = (mainvalueifonetable/(val+2))
-       return calculateperfectval
-    end
-     
-    --local function bomb(tableincrease, tries)
-function bomb(tableincrease, tries)
-    local maintable = {}
-    local spammedtable = {}
-    
-    table.insert(spammedtable, {})
-    z = spammedtable[1]
-
-    tableincrease = tonumber(Settings.max or 22)
-    for i = 1, tableincrease do
-        local tableins = {}
-        table.insert(z, tableins)
-        z = tableins
-    end
-     
-    local calculatemax = getmaxvalue(tableincrease)
-    local maximum
-     
-    if calculatemax then
-         maximum = calculatemax
-         else
-         maximum = 999999
-    end
-     
-    for i = 1, maximum do
-         table.insert(maintable, spammedtable)
-    end
-     
-    --tries = tonumber(Settings.mix or 1.5)
-    for i = 1, tries do
-         game.RobloxReplicatedStorage.SetPlayerBlockList:FireServer(maintable)
-    end
-end
-    
-    tableincrease = tonumber(Settings.max or 22)
-    --tries = tonumber(Settings.mix or 1.5)
-
-    if Settings.EnableLag then
-        --bomb(tableincrease, tonumber(Settings.mix))
-        bomb(tonumber(Settings.max), tonumber(Settings.mix))
-    elseif not Settings.EnableLag then
-        bomb(tableincrease, 0)
-    end
-    --bomb(tableincrease, tries)
-    --repeat task.wait() until not Settings.EnableLag
-            end
-        end
-    end
-end)
-
-    LG1:Cheat("Textbox", " Lag At Wave ", function(Value)
-        Value = tonumber(Value)
-        Settings.LagatWave = Value
-        saveSettings()
-    end, {placeholder = Settings.LagatWave}) 
-
-
-    LG1:Cheat("Slider", "LAG IMPACT(S) ", function(Value)
-        print("LAG Lv.:", Value)
-        Settings.lagimpact = tonumber(Value)
-        saveSettings()
-    end, {min = 0, max = 499999, suffix = "", default = Settings.lagimpact })
-    --LG1:Cheat("Label","LAG IMPACT(S) : "..tonumber(Settings.lagimpact)) 
-
-
-    LG1:Cheat("Slider", "LAG Threads ", function(Value)
-        print("LAG Lv.:", Value)
-        Settings.max = tonumber(Value)
-        saveSettings()
-    end, {min = 0, max = 250, suffix = "", default = Settings.max })
-    --LG1:Cheat("Label","LAG Threads : "..tonumber(Settings.max)) 
-
-
-    LG1:Cheat("Slider", "LAG Lv. ", function(Value)
-        print("LAG Lv.:", Value)
-        Settings.mix = tonumber(Value)
-        saveSettings()
-    end, {min = 1, max = 7, suffix = "", default = Settings.mix })
-    --LG1:Cheat("Label","LAG Lv. : "..tonumber(Settings.mix)) 
-
-
-    LG1:Cheat("Slider", "Delay ", function(Value)
-        print("Delay.:", Value)
-        Settings.delag = tonumber(Value)
-        saveSettings()
-    end, {min = 0.1, max = 10, suffix = "", default = Settings.delag })
-    --LG1:Cheat("Label","LAG Delay :  "..tonumber(Settings.delag)) 
-
-    LG1:Cheat("Label"," How to LAG Setting")
-    LG1:Cheat("Label"," Def-Setting")
-    LG1:Cheat("Label"," IMPACT(S) = 499k, Threads = 22")
-    LG1:Cheat("Label"," LAG Lv. = 1, Delay = 1")
-    LG1:Cheat("Label"," Fast-LAG")
-    LG1:Cheat("Label"," IMPACT(S) = 499k, Threads = 22")
-    LG1:Cheat("Label"," LAG Lv. = 1, Delay = 0.2")
-
-
-end
 ----------------------------------------------
 ---------------- Auto Summon -----------------
 ----------------------------------------------
@@ -3485,46 +3316,6 @@ function SnipeMerchant()
     end,{enabled = Settings.AutoSnipeMerchant })
 
     -----------------------------------------------------------------------------
-    --AutoBuySummer AutoBuyEvent
-
-    --BSD
-    SummerItem:Cheat("Dropdown", "Select Item BSD Event",function(pornname)
-        getgenv().portalnameC = pornname
-        saveSettings()
-    end, { options = {"bsd_portal_item_contract","bsd_book"}, default = getgenv().portalnameC})
-
-    SummerItem:Cheat("Dropdown", "Select Total Item",function(value)
-        Settings.SummerNum = value
-        saveSettings()
-    end, { options = {"1","10","100"}, default = getgenv().SummerNum})
-
-    SummerItem:Cheat("Button","Buy Item BSD [One Time]", function(bool)
-        local args = {
-            [1] = getgenv().ItemEventNameC,
-            [2] = Settings.SummerNum
-        }
-        game:GetService("ReplicatedStorage").endpoints.client_to_server.buy_bsd_shop_item:InvokeServer(unpack(args))
-        warn("Buy Event Items !!!")
-    end)
-    
-    SummerItem:Cheat("Checkbox","Auto Buy Item BSD [Many time]", function(bool)
-        print(bool)
-        Settings.AutoBuySummer = bool
-        saveSettings()
-    end,{enabled = Settings.AutoBuySummer})
-
-    task.spawn(function()
-        while task.wait() do
-            if Settings.AutoBuySummer then
-                local args = {
-                    [1] = getgenv().ItemEventNameC,
-                    [2] = Settings.SummerNum
-                }
-                game:GetService("ReplicatedStorage").endpoints.client_to_server.buy_bsd_shop_item:InvokeServer(unpack(args))
-            end
-        end
-    end)
-
     --Halloween
 
     SummerItem2:Cheat("Dropdown", "Select Item Halloween",function(pornname2)
@@ -3894,8 +3685,7 @@ function Sellportals()
             end
         end
     end)
-
-    SellPortals:Cheat("Label"," ")   
+    
     SellPortals:Cheat("Checkbox","Auto Sell == [Select Tier]", function(bool)
         print(bool)
         Settings.AutoSellNRPortals = bool
@@ -3926,7 +3716,6 @@ function Sellportals()
         end
     end)
 
-    SellPortals:Cheat("Label"," ")   
     SellPortals:Cheat("Checkbox","Auto Sell All [All Tier & Challenge]", function(bool)
         print(bool)
         Settings.AutoSellAllPortals = bool
@@ -3964,30 +3753,17 @@ end
 ----------------------------------------------
 function autoload()
     pcall(function()
-        local exec = tostring(identifyexecutor())
-        if exec == "Synapse X" and Settings.AutoLoadScript then
-            syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Omgshit/Scripts/refs/heads/main/AnimeAdventures.lua'))()")
-        elseif exec ~= "Synapse X" and Settings.AutoLoadScript then
-            queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Omgshit/Scripts/refs/heads/main/AnimeAdventures.lua'))()")
-        end
+    local exec = tostring(identifyexecutor())
+    if exec == "Synapse X" and Settings.AutoLoadScript then
+        syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Omgshit/Scripts/refs/heads/main/AnimeAdventures.lua'))()")
+    else
+        queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Omgshit/Scripts/refs/heads/main/AnimeAdventures.lua'))()")
+    end
     end)
 end
 
 if Settings.AutoLoadScript then
     autoload()
-end
-
-if Settings.AutoLoadScript == true then
-    local exec = tostring(identifyexecutor())
-    if exec == "Synapse X" then
-        syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Omgshit/Scripts/refs/heads/main/AnimeAdventures.lua'))()")
-    else
-        queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Omgshit/Scripts/refs/heads/main/AnimeAdventures.lua'))()")
-    end
-end
-
-function autoload2()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/Omgshit/Scripts/refs/heads/main/AnimeAdventures.lua'))()
 end
 
 if Settings.refarmc then
@@ -4001,32 +3777,11 @@ if Settings.setfarmIC then
 
 function others()
 
-    OtherSec:Cheat("Checkbox","Auto Load Script 1", function(bool)
+    OtherSec:Cheat("Checkbox","Auto Load Script", function(bool)
         print(bool)
         Settings.AutoLoadScript = bool
         saveSettings()
     end,{enabled = Settings.AutoLoadScript})
-
-    OtherSec:Cheat("Checkbox","Auto Load Script 2", function(bool)
-        print(bool)
-        Settings.AutoLoadScript2 = bool
-        saveSettings()
-    end,{enabled = Settings.AutoLoadScript2})
-    
-    task.spawn(function()
-        while task.wait() do
-                if exec == "Synapse X" and Settings.AutoLoadScript2 then
-                    syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Omgshit/Scripts/refs/heads/main/AnimeAdventures.lua'))()")
-
-                    if exec == "Synapse X" then
-                        syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Omgshit/Scripts/refs/heads/main/AnimeAdventures.lua'))()")
-                    end
-
-                elseif exec ~= "Synapse X" and Settings.AutoLoadScript2 then
-                    queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Omgshit/Scripts/refs/heads/main/AnimeAdventures.lua'))()")
-                end
-            end
-        end)
         
     OtherSec3:Cheat("Checkbox","Hide Name Player", function(bool)
         Settings.hidenamep = bool
@@ -4049,7 +3804,6 @@ if game.PlaceId == 8304191830 then
     DeleteMapSec()
     unitconfig()
     LowCPUModeT()
-    LAGGYconfig()
     credits()
     AutoSummon()
     SnipeMerchant()
@@ -7440,9 +7194,7 @@ function placeunittwin()
 
 --ReedemCode updatefix
 function Reedemcode()
-    codes = {"TWOMILLION","subtomaokuma","CHALLENGEFIX","GINYUFIX","RELEASE","SubToKelvingts","SubToBlamspot","KingLuffy","TOADBOIGAMING","noclypso","FictioNTheFirst","GOLDENSHUTDOWN","GOLDEN"
-    ,"SINS2","subtosnowrbx","Cxrsed","subtomaokuma","VIGILANTE","HAPPYEASTER","ENTERTAINMENT","DRESSROSA","BILLION","MADOKA","AINCRAD","ANNIVERSARY","OVERLORD","SupperTierMagicSoon",
-    "NEWCODE0819","MORIOH","REASON2FIGHT","HOLYGRAIL","STRAYDOGS","HALLOWEENUPDSOON","HAPPYHALLOWEEN","SIXPATHSUPD","AMEGAKURE","UNLEASHFUSESOON","SACREDPLANET"}
+    codes = {"HOLIDAYS2024","MERRYCHRISTMAS"}
         for _, v in pairs(codes) do
         pcall(function() game:GetService("ReplicatedStorage").endpoints["client_to_server"]["redeem_code"]:InvokeServer(v)()    end) 
     end
