@@ -3824,7 +3824,6 @@ else
     UnitPosSec()
     unitconfig()
     LowCPUModeT()
-    LAGGYconfig()
     credits()
     SnipeMerchant()
     Webhooksec()
