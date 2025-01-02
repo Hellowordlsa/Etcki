@@ -1,11 +1,12 @@
- repeat  task.wait() until game:IsLoaded()
+repeat  task.wait() until game:IsLoaded()
 if game.PlaceId == 8304191830 then
-    local StarterGui = game:GetService("StarterGui")
+     local StarterGui = game:GetService("StarterGui")
         StarterGui:SetCore("SendNotification", {
             Title = "OMG Hub",
             Text = "Welcome to OMG Hub!",
             Duration = 4
         })
+    wait(0.5)
     repeat task.wait() until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
     repeat task.wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("collection"):FindFirstChild("grid"):FindFirstChild("List"):FindFirstChild("Outer"):FindFirstChild("UnitFrames")
     repeat task.wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("UpdateUI"):FindFirstChild("Main"):FindFirstChild("Top"):FindFirstChild("Title")
@@ -24,8 +25,11 @@ else
     game:GetService("ReplicatedStorage").endpoints.client_to_server.vote_start:InvokeServer()
     repeat task.wait() until game:GetService("Workspace")["_waves_started"].Value == true
 end
+
+--Version_UI
 UPDUI2 = game:GetService('HttpService'):JSONDecode(readfile(game:GetService('Players').LocalPlayer.Name .. 'UPD_name.txt'))
 local version = tostring(UPDUI2)
+--local version = "16.0.0-1xx"
 ------------------------------
 local a = 'V2_Anime_Adventures' -- 
 local b = game:GetService('Players').LocalPlayer.Name .. '_AnimeAdventures.json' 
@@ -55,6 +59,8 @@ function ReadSetting()
     end
 end
 Settings = ReadSetting()
+
+    -- Start of Get Level Data of Map [Added by HOLYSHz]
     function GLD()
         local list = {}
         for i,v in pairs(game.Workspace._MAP_CONFIG:WaitForChild("GetLevelData"):InvokeServer()) do
@@ -62,9 +68,11 @@ Settings = ReadSetting()
         end
         return list
     end
+
     if game.PlaceId ~= 8304191830 then
         GLD()
     end
+        -- End of Get Level Data of Map
 ------------------------------
 local HttpService = game:GetService("HttpService")
 local Workspace = game:GetService("Workspace") 
@@ -132,6 +140,11 @@ end
 if game.Players.LocalPlayer._stats:FindFirstChild("_resourceCandies") then
     SummerPearlsOld = game.Players.LocalPlayer._stats._resourceCandies.Value
 end
+
+if game.Players.LocalPlayer._stats:FindFirstChild("_resourceHolidayStars") then
+    HolidayStarsOld = game.Players.LocalPlayer._stats._resourceHolidayStars.Value
+end
+
 ----------------Map & ID Map
 local function GetCurrentLevelId()
     if game.Workspace._MAP_CONFIG then
@@ -155,7 +168,6 @@ function comma_value(p1)
 	return value;
 end;
 ----------------endMap & ID Map
-getgenv().item = "-"
 function webhook()
     if Settings.WebhookEnabled then
         local url = Settings.WebhookUrl
@@ -163,12 +175,14 @@ function webhook()
         if url == "" then
             warn("Webhook Url is empty!")
             return
-        end        
+        end 
+        
         local Time = os.date('!*t', OSTime);
         --local thumbnails_avatar = HttpService:JSONDecode(game:HttpGet("https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. game:GetService("Players").LocalPlayer.UserId .. "&size=150x150&format=Png&isCircular=true", true))
         local exec = tostring(identifyexecutor())
         userlevel = plr.PlayerGui:FindFirstChild("spawn_units"):FindFirstChild("Lives"):FindFirstChild("Main"):FindFirstChild("Desc"):FindFirstChild("Level").Text
-        totalgems = plr.PlayerGui:FindFirstChild("spawn_units"):FindFirstChild("Lives"):FindFirstChild("Frame"):FindFirstChild("Resource"):FindFirstChild("Gem"):FindFirstChild("Level").Text     
+        totalgems = plr.PlayerGui:FindFirstChild("spawn_units"):FindFirstChild("Lives"):FindFirstChild("Frame"):FindFirstChild("Resource"):FindFirstChild("Gem"):FindFirstChild("Level").Text
+        
         ResultHolder = plr.PlayerGui:FindFirstChild("ResultsUI"):FindFirstChild("Holder")
         if game.PlaceId ~= 8304191830 then
         levelname = game:GetService("Workspace"):FindFirstChild("_MAP_CONFIG"):FindFirstChild("GetLevelData"):InvokeServer()["name"]
@@ -223,6 +237,10 @@ function webhook()
 
         if game.Players.LocalPlayer._stats:FindFirstChild("_resourceCandies") then
             SummerPearls = game.Players.LocalPlayer._stats._resourceCandies.Value
+        end
+
+        if game.Players.LocalPlayer._stats:FindFirstChild("_resourceHolidayStars") then
+            HolidayStars = game.Players.LocalPlayer._stats._resourceHolidayStars.Value
         end
         
         xpx = ResultHolder:FindFirstChild("LevelRewards"):FindFirstChild("ScrollingFrame"):FindFirstChild("XPReward"):FindFirstChild("Main"):FindFirstChild("Amount").Text
@@ -324,22 +342,22 @@ function webhook()
 
         local data = {
             ["content"] = "",
-            ["username"] = "OMG Hub | Anime Adventure",
-            ["avatar_url"] = "https://tr.rbxcdn.com/004babc7b7ab98294150c70d7ea7bf0d/150/150/Image/Png",
+            ["username"] = "Anime Adventures V2",
+            ["avatar_url"] = "https://tr.rbxcdn.com/180DAY-a4dda77cbeb2a02523deb6c49ece2ce4/256/256/Image/png/noFilter",
             ["embeds"] = {
                 {
                     ["author"] = {
-                        ["name"] = "OMG Hub | Anime Adventure",
+                        ["name"] = "Anime Adventures |  Results V2 ✔️",
                         ["icon_url"] = "https://cdn.discordapp.com/emojis/997123585476927558.webp?size=96&quality=lossless"
                     },
-                    --[[["thumbnail"] = {
-                        ['url'] = thumbnails_avatar.data[1].imageUrl,
-                    },]]
+                    ["thumbnail"] = {
+                        ["url"] = "https://tr.rbxcdn.com/180DAY-a4dda77cbeb2a02523deb6c49ece2ce4/256/256/Image/png/noFilter",
+                    },
                     ["description"] = " Player Name : 🐱 ||**"..game:GetService("Players").LocalPlayer.Name.."**|| 🐱\nExecutors : 🎮 "..exec.." 🎮 ",
                     ["color"] = 110335,
                     ["timestamp"] = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
                     ['footer'] = {
-                        ['text'] = "// Made by Omg", 
+                        ['text'] = "// By OMG Hub", 
                         ['icon_url'] = "https://yt3.ggpht.com/mApbVVD8mT92f50OJuTObnBbc3j7nDCXMJFBk2SCDpSPcaoH9DB9rxVpJhsB5SxAQo1UN2GzyA=s48-c-k-c0x00ffffff-no-rj"
                     },
                     ["fields"] = {
@@ -352,7 +370,8 @@ function webhook()
                                         ..tostring(comma_value(game.Players.LocalPlayer._stats.gem_amount.Value)).. " 💎\nCurrent Trophies : "
                                         ..tostring(comma_value(game.Players.LocalPlayer._stats.trophies.Value)).. " 🏆\nCurrent Portal : "
                                         ..tostring(Count_Portal_list) .." / 200 🌀\nCurrent Candies : "
-                                        ..tostring(comma_value(game.Players.LocalPlayer._stats._resourceCandies.Value)).. " 🎃```",
+                                        ..tostring(comma_value(game.Players.LocalPlayer._stats._resourceCandies.Value)).. " 🎃\nCurrent Stars : "
+                                        ..tostring(comma_value(game.Players.LocalPlayer._stats._resourceHolidayStars.Value)).. " 🌟```",
                         },
                         {
                             ["name"] ="Results :",
@@ -365,7 +384,8 @@ function webhook()
                                             .. comma_value(gold) .." Gold 💰\n"
                                             .. comma_value(gems) .." Gems 💎\n"
                                             .. comma_value(xp[1]) .." XP 🧪\n+"
-                                            .. comma_value(SummerPearls - SummerPearlsOld) .." Candies 🎃\n"
+                                            .. comma_value(SummerPearls - SummerPearlsOld) .." Candies 🎃\n+"
+                                            .. comma_value(HolidayStars - HolidayStarsOld) .." Holiday Stars 🌟\n"
                                             .. trophy .." Trophy 🏆```",
                         },
                         {
@@ -434,7 +454,7 @@ function BabyWebhook()
 
 		local data = {
             ["content"] = "",
-                ["username"] = "OMG Hub | Anime Adventure",
+                ["username"] = "Anime Adventures V2",
                 ["avatar_url"] = "https://tr.rbxcdn.com/5c9e29b3953ec061286e76f08f1718b3/150/150/Image/Png",
                 ["embeds"] = {
                     {
@@ -442,9 +462,9 @@ function BabyWebhook()
                             ["name"] = " Current BTP & Inf Castle & Tournament Results ✔️",
                             ["icon_url"] = "https://cdn.discordapp.com/emojis/997123585476927558.webp?size=96&quality=lossless"
                         },
-                        --[[["thumbnail"] = {
-                            ['url'] = thumbnails_avatar.data[1].imageUrl,
-                        },]]
+                        ["thumbnail"] = {
+                            ["url"] = "https://tr.rbxcdn.com/180DAY-a4dda77cbeb2a02523deb6c49ece2ce4/256/256/Image/png/noFilter",
+                        },
                         ["description"] = " Player Name : 🐱 ||**"..game:GetService("Players").LocalPlayer.Name.."**|| 🐱",
                         ["color"] = 110335,
                         ["timestamp"] = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
@@ -517,7 +537,7 @@ function SpecialSummonSniperWebhook()
 
 		local data = {
             ["content"] = "",
-                ["username"] = "OMG Hub | Anime Adventure",
+                ["username"] = "Anime Adventures V2",
                 ["avatar_url"] = "https://tr.rbxcdn.com/5c9e29b3953ec061286e76f08f1718b3/150/150/Image/Png",
                 ["embeds"] = {
                     {
@@ -525,9 +545,9 @@ function SpecialSummonSniperWebhook()
                             ["name"] = " Special Banner ",
                             ["icon_url"] = "https://cdn.discordapp.com/emojis/997123585476927558.webp?size=96&quality=lossless"
                         },
-                        --[[["thumbnail"] = {
-                            ['url'] = thumbnails_avatar.data[1].imageUrl,
-                        },]]
+                        ["thumbnail"] = {
+                            ["url"] = "https://tr.rbxcdn.com/180DAY-a4dda77cbeb2a02523deb6c49ece2ce4/256/256/Image/png/noFilter",
+                        },
                         ["description"] = " Player Name : 🐱 ||**"..game:GetService("Players").LocalPlayer.Name.."**|| 🐱",
                         ["color"] = 110335,
                         ["timestamp"] = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
@@ -599,7 +619,7 @@ function StandardSummonSniperWebhook()
 
 		local data = {
             ["content"] = "",
-                ["username"] = "OMG Hub | Anime Adventure",
+                ["username"] = "Anime Adventures V2",
                 ["avatar_url"] = "https://tr.rbxcdn.com/5c9e29b3953ec061286e76f08f1718b3/150/150/Image/Png",
                 ["embeds"] = {
                     {
@@ -607,9 +627,9 @@ function StandardSummonSniperWebhook()
                             ["name"] = " Standard Banner ",
                             ["icon_url"] = "https://cdn.discordapp.com/emojis/997123585476927558.webp?size=96&quality=lossless"
                         },
-                        --[[["thumbnail"] = {
-                            ['url'] = thumbnails_avatar.data[1].imageUrl,
-                        },]]
+                        ["thumbnail"] = {
+                            ["url"] = "https://tr.rbxcdn.com/180DAY-a4dda77cbeb2a02523deb6c49ece2ce4/256/256/Image/png/noFilter",
+                        },
                         ["description"] = " Player Name : 🐱 ||**"..game:GetService("Players").LocalPlayer.Name.."**|| 🐱",
                         ["color"] = 110335,
                         ["timestamp"] = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
@@ -665,7 +685,7 @@ function ShopSniperWebhook()
 
 		local data = {
             ["content"] = "",
-                ["username"] = "OMG Hub | Anime Adventure",
+                ["username"] = "Anime Adventures V2",
                 ["avatar_url"] = "https://tr.rbxcdn.com/5c9e29b3953ec061286e76f08f1718b3/150/150/Image/Png",
                 ["embeds"] = {
                     {
@@ -673,9 +693,9 @@ function ShopSniperWebhook()
                             ["name"] = " Bulma's Shop ",
                             ["icon_url"] = "https://cdn.discordapp.com/emojis/997123585476927558.webp?size=96&quality=lossless"
                         },
-                        --[[["thumbnail"] = {
-                            ['url'] = thumbnails_avatar.data[1].imageUrl,
-                        },]]
+                        ["thumbnail"] = {
+                            ["url"] = "https://tr.rbxcdn.com/180DAY-a4dda77cbeb2a02523deb6c49ece2ce4/256/256/Image/png/noFilter",
+                        },
                         ["description"] = " Player Name : 🐱 ||**"..game:GetService("Players").LocalPlayer.Name.."**|| 🐱",
                         ["color"] = 110335,
                         ["timestamp"] = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
@@ -737,7 +757,6 @@ end
 
 local dir = "Anime_Adventures/"..game.Players.LocalPlayer.Name
 local Uilib = loadstring(game:HttpGet("https://raw.githubusercontent.com/ArponAG/Scripts/main/finitylibTEST"))()
---local Uilib = loadstring(game:HttpGet("https://raw.githubusercontent.com/ArponAG/Scripts/main/finitylib"))()
 local exec = tostring(identifyexecutor())
 local Window = Uilib.new(true, "OMG Hub | Anime Adventure "..version.." - "..exec)
 Window.ChangeToggleKey(Enum.KeyCode.RightControl)
@@ -1090,7 +1109,7 @@ local function WorldSec()
         elseif Settings.WorldCategory == "Portals" then
             storylist = {"Alien Portals","Zeldris Portals","Demon Portals","Dressrosa Portals","The Eclipse","FATE Portals","BSD Portals"}
         elseif Settings.WorldCategory == "Dungeon" then
-            storylist = {"Cursed Womb","Crused Parade","Halloween Event"}    
+            storylist = {"Cursed Womb","Crused Parade","Halloween Event","Christmas Event"}    
         elseif Settings.WorldCategory == "Secret Portals" then
             storylist = {"Dressrosa Secret Portals","The Eclipse Secret","FATE Secret","BSD Secret","Pain Secret"} 
         end
@@ -1331,11 +1350,6 @@ end
 ----------------------------------------------
 
 local function AutoFarmSec()
-        AutoFarmConfig:Cheat("Checkbox","💅 Auto Join  ", function(bool)
-        print(bool)
-        Settings.autojoin = bool
-        saveSettings()
-    end,{enabled = Settings.autojoin })
 
     AutoFarmConfig:Cheat("Checkbox","🌾 Auto Start  ", function(bool)
         print(bool)
@@ -1831,7 +1845,7 @@ local function UNITAOEAA()
             end
         end
     end)
-
+    
     --Unit1
     task.spawn(function()
         while task.wait() do
@@ -2381,13 +2395,12 @@ if Settings.SelectedUnits ~= nil then
             saveSettings()
         end, { options = { "Off", names[i] }, default = Settings.UnitAOE6 or nil})
     end
-    --- End Check Unit
 end
 ----------------------------------------------
 ------------------ credits -------------------
 ----------------------------------------------
 local function credits()
-Developers:Cheat("Label","📝 originally made by: Arpon AG#6612 & Forever4D#0001 & HOLYSHz#3819")   
+    Developers:Cheat("Label","📝 originally made by: kitsuna & HOLYSHz")   
 Developers:Cheat("Button","🔗 Discord Invite", function()
         setclipboard("https://discord.gg/OMGHub")
     end)     
@@ -2500,6 +2513,30 @@ function saveposTEST(UnitPos, a,a2,a3,a4,a5,a6)
     if game.workspace._MAP_CONFIG:WaitForChild("GetLevelData") then
 
         --fixmm
+        --Christmas2024
+        if  Mapname == "Holiday Hunt" or world2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 443.4320068359375" 
+        and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 419.4320068359375" 
+        and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 323.4320068359375") then world = "christmas_map_lane1" end
+
+        if  Mapname == "Holiday Hunt" or world2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 419.4320068359375" 
+        and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 443.4320068359375" 
+        and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "") then world = "christmas_map_lane2" end
+
+        if  Mapname == "Holiday Hunt" or world2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 419.4320068359375" 
+        and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 443.4320068359375" 
+        and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 323.4320068359375") then world = "christmas_map_lane3" end
+
+        if  Mapname == "Holiday Hunt" or world2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 419.4320068359375" 
+        and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 419.4320068359375" 
+        and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 299.4320068359375") then world = "christmas_map_lane4" end
+
+        if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 443.4320068359375" 
+        and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 443.4320068359375" 
+        and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 299.4320068359375") then world = "christmas_map_lane5" end
+
+
+
+
         if world == "jjk_raid" then world = "jjk" end
         if world == "jjk_finger" then world = "jjk" end
         if world == "karakura" and world2 == "csm_city" then world = "csm_city" end
@@ -2542,7 +2579,6 @@ function saveposTEST(UnitPos, a,a2,a3,a4,a5,a6)
         if world2 == "uchiha_halloween" then world = "uchiha_hideout_final" end
         if world2 == "entertainment_halloween" then world = "entertainment_district" end
         if world2 == "entertainment_district_halloween" then world = "entertainment_district" end
-        if world2 == "christmas_map" then world = "christmas_map" end
 
 
         updatepos(world, UnitPos, a,a2,a3,a4,a5,a6)
@@ -3206,7 +3242,10 @@ local function LowCPUModeT()
     LowCPU2:Cheat("Button","Activate Boost FPS Mode ", function()
         FPSBOOST()
     end)
+    
+    
     end
+
 ----------------------------------------------
 ---------------- Auto Summon -----------------
 ----------------------------------------------
@@ -3219,7 +3258,7 @@ function SummonUnits(banner, method)
     wait(1.5)
 end
 function AutoSummon()
-    local aaselectbanner = AutoSummonSec:Cheat("Dropdown", "🧙 Select Banner 🧙",function(value)
+       local aaselectbanner = AutoSummonSec:Cheat("Dropdown", "🧙 Select Banner 🧙",function(value)
         getgenv().SelectedBanner = value
     end, { options = {"Event", "Special", "Legacy"}})
 
@@ -3310,6 +3349,7 @@ function SnipeMerchant()
     end,{enabled = Settings.AutoSnipeMerchant })
 
     -----------------------------------------------------------------------------
+
     --Halloween
 
     SummerItem2:Cheat("Dropdown", "Select Item Halloween",function(pornname2)
@@ -3451,22 +3491,22 @@ task.spawn(function()
 
                 local data = {
                     ["content"] = "",
-                    ["username"] = "OMG Hub | Anime Adventure",
-                    ["avatar_url"] = "https://tr.rbxcdn.com/004babc7b7ab98294150c70d7ea7bf0d/150/150/Image/Png",
+                    ["username"] = "Anime Adventures V2",
+                    ["avatar_url"] = "https://tr.rbxcdn.com/180DAY-a4dda77cbeb2a02523deb6c49ece2ce4/256/256/Image/png/noFilter",
                     ["embeds"] = {
                         {
                             ["author"] = {
-                                ["name"] = "OMG Hub | Anime Adventure | Skin ✔️",
+                                ["name"] = "Anime Adventures | Skin ✔️",
                                 ["icon_url"] = "https://cdn.discordapp.com/emojis/997123585476927558.webp?size=96&quality=lossless"
                             },
-                            --[[["thumbnail"] = {
-                                ['url'] = thumbnails_avatar.data[1].imageUrl,
-                            },]]
+                            ["thumbnail"] = {
+                                ["url"] = "https://tr.rbxcdn.com/180DAY-a4dda77cbeb2a02523deb6c49ece2ce4/256/256/Image/png/noFilter",
+                            },
                             ["description"] = " Player Name : 🐱 ||**"..game:GetService("Players").LocalPlayer.Name.."**|| 🐱\nExecutors : 🎮 "..exec.." 🎮 ",
                             ["color"] = 110335,
                             ["timestamp"] = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
                             ['footer'] = {
-                                ['text'] = "// Made by Omg", 
+                                ['text'] = "// By OMG Hub", 
                                 ['icon_url'] = "https://yt3.ggpht.com/mApbVVD8mT92f50OJuTObnBbc3j7nDCXMJFBk2SCDpSPcaoH9DB9rxVpJhsB5SxAQo1UN2GzyA=s48-c-k-c0x00ffffff-no-rj"
                             },
                             ["fields"] = {
@@ -3679,7 +3719,7 @@ function Sellportals()
             end
         end
     end)
-    
+
     SellPortals:Cheat("Checkbox","Auto Sell == [Select Tier]", function(bool)
         print(bool)
         Settings.AutoSellNRPortals = bool
@@ -3691,6 +3731,7 @@ function Sellportals()
             if Settings.AutoSellNRPortals then
                 for i,v in pairs(get_inventory_items_unique_items()) do
                     if string.find(v['item_id'],"portal") or string.find(v['item_id'],"disc") then
+
                         if v['item_id'] == Settings.SelectedSellPortals then
                         if v["_unique_item_data"]["_unique_portal_data"]["portal_depth"] == Settings.SelectedSellTier then
                                 local args = {
@@ -3740,6 +3781,7 @@ function Sellportals()
             end
         end
     end)
+
 end
     
 ----------------------------------------------
@@ -3760,14 +3802,6 @@ if Settings.AutoLoadScript then
     autoload()
 end
 
-if Settings.refarmc then
-    autoload2() end
-if Settings.setfarm1 then
-    autoload2() end
-if Settings.setfarm2 then
-    autoload2() end
-if Settings.setfarmIC then
-    autoload2() end
 
 function others()
 
@@ -4418,7 +4452,6 @@ local function startfarming()
             elseif tostring(game.Workspace._LOBBIES.Story[getgenv().door].Owner.Value) ~= plr.Name then
                 for i, v in pairs(game:GetService("Workspace")["_LOBBIES"].Story:GetDescendants()) do
                     if v.Name == "Owner" and v.Value == nil then
-                  if  Settings.autojoin then
                         local args = { [1] = tostring(v.Parent.Name) }
                         game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
     
@@ -4440,7 +4473,6 @@ local function startfarming()
                         break
                     end
                 end
-               end
     
                 task.wait()
     
@@ -4476,7 +4508,6 @@ local function startfarming()
             elseif tostring(game.Workspace._RAID.Raid[getgenv().door].Owner.Value) ~= plr.Name then
                 for i, v in pairs(game:GetService("Workspace")["_RAID"].Raid:GetDescendants()) do
                     if v.Name == "Owner" and v.Value == nil then
-                    if  Settings.autojoin then
                         local args = { [1] = tostring(v.Parent.Name) }
                         game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
     
@@ -4498,7 +4529,6 @@ local function startfarming()
                         break
                     end
                 end
-              end
     
                 task.wait()
     
@@ -4537,7 +4567,6 @@ local function startfarming()
             if tostring(game.Workspace._DUNGEONS.Lobbies[getgenv().door].Owner.Value) ~= plr.Name then
                 for i, v in pairs(game:GetService("Workspace")["_DUNGEONS"].Lobbies:GetDescendants()) do
                     if v.Name == "Owner" and v.Value == nil then
-                    if  Settings.autojoin then
                         local args = { [1] = tostring(v.Parent.Name) }
                         game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
     
@@ -4560,7 +4589,6 @@ local function startfarming()
                         break
                     end
                 end
-              end
     
                 task.wait()
     
@@ -4597,7 +4625,6 @@ local function startfarming()
                 if tostring(game.Workspace._DUNGEONS.Lobbies[getgenv().door].Owner.Value) ~= plr.Name then
                     for i, v in pairs(game:GetService("Workspace")["_DUNGEONS"].Lobbies:GetDescendants()) do
                         if v.Name == "Owner" and v.Value == nil then
-                        if  Settings.autojoin then
                             local args = { [1] = tostring(v.Parent.Name) }
                             game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
         
@@ -4620,7 +4647,6 @@ local function startfarming()
                             break
                         end
                     end
-                   end
         
                     task.wait()
         
@@ -4644,73 +4670,138 @@ local function startfarming()
                     task.wait(1)
                 end
             --Events Halloween
-        elseif cata == "Dungeon" then
-            if level == "namek_halloween" and Settings.Matchmaking then
-                getgenv().door = "_lobbytemplate_event321"
+            elseif cata == "Dungeon" then
+                if level == "namek_halloween" and Settings.Matchmaking then
+                    getgenv().door = "_lobbytemplate_event4"
 
-                local string_1 = "halloween2_event";
-                local Target = game:GetService("ReplicatedStorage").endpoints["client_to_server"]["request_matchmaking"];
-                Target:InvokeServer(string_1);
 
-            elseif level == "namek_halloween"and not Settings.Matchmaking then
-                getgenv().door = "_lobbytemplate_event321"
-                local string_1 = "_lobbytemplate_event321";
-                local table_1 = {
-                    ["selected_key"] = "key_jjk_map"
-                };
-                local Target = game:GetService("ReplicatedStorage").endpoints["client_to_server"]["request_join_lobby"];
-                Target:InvokeServer(string_1, table_1);
+                    local string_1 = "_lobbytemplate_event4";
+                    local Target = game:GetService("ReplicatedStorage").endpoints["client_to_server"]["request_matchmaking"];
+                    Target:InvokeServer(string_1);
+
+
+                elseif level == "namek_halloween"and not Settings.Matchmaking then
+                    getgenv().door = "_lobbytemplate_event4"
+
+                    local string_1 = "_lobbytemplate_event4";
+                    local Target = game:GetService("ReplicatedStorage").endpoints["client_to_server"]["request_join_lobby"];
+                    Target:InvokeServer(string_1);
+                
+                    if tostring(game.Workspace._DUNGEONS.Lobbies[getgenv().door].Owner.Value) ~= plr.Name then
+                        for i, v in pairs(game:GetService("Workspace")["_DUNGEONS"].Lobbies:GetDescendants()) do
+                            if v.Name == "Owner" and v.Value == nil then
+                                local args = { [1] = tostring(v.Parent.Name) }
+                                game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
             
-                if tostring(game.Workspace._DUNGEONS.Lobbies[getgenv().door].Owner.Value) ~= plr.Name then
-                    for i, v in pairs(game:GetService("Workspace")["_DUNGEONS"].Lobbies:GetDescendants()) do
-                        if v.Name == "Owner" and v.Value == nil then
-                       if  Settings.autojoin then
-                            local args = { [1] = tostring(v.Parent.Name) }
-                            game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
-        
-                            task.wait()
-                        
-                            local args = {
-                                [1] = tostring(v.Parent.Name), -- Lobby 
-                                [2] = Settings.SelectedLevel, -- World/Level
-                                [3] = Settings.isFriendOnly or true, -- Friends Only or not
-                                [4] = Settings.Difficulty 
-                            }
-        
-                            game:GetService("ReplicatedStorage").endpoints.client_to_server.request_lock_level:InvokeServer(unpack(args))
-        
-                            local args = { [1] =tostring(v.Parent.Name) }
-                            game:GetService("ReplicatedStorage").endpoints.client_to_server.request_start_game:InvokeServer(unpack(args))
+                                task.wait()
                             
-                            getgenv().door = v.Parent.Name print(v.Parent.Name) --v.Parent:GetFullName()
-                            plr.Character.HumanoidRootPart.CFrame = v.Parent.Door.CFrame
-                            break
+                                local args = {
+                                    [1] = tostring(v.Parent.Name), -- Lobby 
+                                    [2] = Settings.SelectedLevel, -- World/Level
+                                    [3] = Settings.isFriendOnly or true, -- Friends Only or not
+                                    [4] = Settings.Difficulty 
+                                }
+            
+                                game:GetService("ReplicatedStorage").endpoints.client_to_server.request_lock_level:InvokeServer(unpack(args))
+            
+                                local args = { [1] =tostring(v.Parent.Name) }
+                                game:GetService("ReplicatedStorage").endpoints.client_to_server.request_start_game:InvokeServer(unpack(args))
+                                
+                                getgenv().door = v.Parent.Name print(v.Parent.Name) --v.Parent:GetFullName()
+                                plr.Character.HumanoidRootPart.CFrame = v.Parent.Door.CFrame
+                                break
+                            end
+                        end
+            
+                        task.wait()
+            
+                        plr.Character.HumanoidRootPart.CFrame = cpos
+            
+                        if Workspace._DUNGEONS.Lobbies[getgenv().door].Owner == plr.Name then
+                            if Workspace._DUNGEONS.Lobbies[getgenv().door].Teleporting.Value == true then
+                                getgenv().teleporting = false
+                            else
+                                getgenv().teleporting = true
+                            end
+                        end
+            
+                    pcall(function() 
+                        BabyWebhook()
+                        SnipeShopNew()
+                    end)
+                        print("send Webhook")
+                        task.wait(0.5)
+                        warn("DUNGEONS Annivesary farming")
+                        task.wait(1)
+                    end
+                --Events Holiday Christmas
+                elseif cata == "Dungeon" then
+                    if level == "christmas_map" and Settings.Matchmaking then
+                        getgenv().door = "_lobbytemplate_event3"
+
+                        local string_1 = "_lobbytemplate_event3";
+                        local Target = game:GetService("ReplicatedStorage").endpoints["client_to_server"]["request_matchmaking"];
+                        Target:InvokeServer(string_1);
+
+
+                    elseif level == "christmas_map"and not Settings.Matchmaking then
+                        getgenv().door = "_lobbytemplate_event3"
+
+                        local string_1 = "_lobbytemplate_event3";
+                        local Target = game:GetService("ReplicatedStorage").endpoints["client_to_server"]["request_join_lobby"];
+                        Target:InvokeServer(string_1);
+                    
+                        if tostring(game.Workspace._DUNGEONS.Lobbies[getgenv().door].Owner.Value) ~= plr.Name then
+                            for i, v in pairs(game:GetService("Workspace")["_DUNGEONS"].Lobbies:GetDescendants()) do
+                                if v.Name == "Owner" and v.Value == nil then
+                                    local args = { [1] = tostring(v.Parent.Name) }
+                                    game:GetService("ReplicatedStorage").endpoints.client_to_server.request_join_lobby:InvokeServer(unpack(args))
+
+                                    task.wait()
+                                
+                                    local args = {
+                                        [1] = tostring(v.Parent.Name), -- Lobby 
+                                        [2] = Settings.SelectedLevel, -- World/Level
+                                        [3] = Settings.isFriendOnly or true, -- Friends Only or not
+                                        [4] = Settings.Difficulty 
+                                    }
+
+                                    game:GetService("ReplicatedStorage").endpoints.client_to_server.request_lock_level:InvokeServer(unpack(args))
+
+                                    local args = { [1] =tostring(v.Parent.Name) }
+                                    game:GetService("ReplicatedStorage").endpoints.client_to_server.request_start_game:InvokeServer(unpack(args))
+                                    
+                                    getgenv().door = v.Parent.Name print(v.Parent.Name) --v.Parent:GetFullName()
+                                    plr.Character.HumanoidRootPart.CFrame = v.Parent.Door.CFrame
+                                    break
+                                end
+                            end
+
+                            task.wait()
+
+                            plr.Character.HumanoidRootPart.CFrame = cpos
+
+                            if Workspace._DUNGEONS.Lobbies[getgenv().door].Owner == plr.Name then
+                                if Workspace._DUNGEONS.Lobbies[getgenv().door].Teleporting.Value == true then
+                                    getgenv().teleporting = false
+                                else
+                                    getgenv().teleporting = true
+                                end
+                            end
+
+                        pcall(function() 
+                            BabyWebhook()
+                            SnipeShopNew()
+                        end)
+                            print("send Webhook")
+                            task.wait(0.5)
+                            warn("DUNGEONS HOLIDAY farming")
+                            task.wait(1)
                         end
                     end
-                  end
-        
-                    task.wait()
-        
-                    plr.Character.HumanoidRootPart.CFrame = cpos
-        
-                    if Workspace._DUNGEONS.Lobbies[getgenv().door].Owner == plr.Name then
-                        if Workspace._DUNGEONS.Lobbies[getgenv().door].Teleporting.Value == true then
-                            getgenv().teleporting = false
-                        else
-                            getgenv().teleporting = true
-                        end
-                    end
-        
-                pcall(function() 
-                    BabyWebhook()
-                    SnipeShopNew()
-                 end)
-                    print("send Webhook")
-                    task.wait(0.5)
-                    warn("DUNGEONS Annivesary farming")
-                    task.wait(1)
                 end
-            end
+
+
                 end
             end
         end
@@ -5401,15 +5492,6 @@ coroutine.resume(coroutine.create(function()
                 SnipeShopNew()
             end
         end
-        if Settings.AutoLoadScript2 then
-            local exec = tostring(identifyexecutor())
-            if exec == "Synapse X" then
-                syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Omgshit/Scripts/refs/heads/main/AnimeAdventures.lua'))()")
-            else
-                queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Omgshit/Scripts/refs/heads/main/AnimeAdventures.lua'))()")
-            end
-        
-        end
         if game.PlaceId ~= 8304191830 then
             local _wave = game:GetService("Workspace"):WaitForChild("_wave_num")
             if Settings.autoQuit and not Settings.AutoSell and tonumber(Settings.AutoSellWave) <= _wave.Value then
@@ -5683,7 +5765,7 @@ coroutine.resume(coroutine.create(function()
     end)
 
     while task.wait() do
-        if getgenv().AutoSummon then
+     if getgenv().AutoSummon then
             if getgenv().SelectedBanner == "Event" and getgenv().SelectedMethod ~= nil then
                 SummonUnits("Christmas2024", getgenv().SelectedMethod)
             elseif getgenv().SelectedBanner == "Special" and getgenv().SelectedMethod ~= nil then
@@ -5744,6 +5826,31 @@ function PlacePos(map,name,_uuid,unit)
         local Mapname = GetLevelData.name
 
         --fixmm
+        --Christmas2024
+        if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 443.4320068359375" 
+        and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 419.4320068359375" 
+        and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 323.4320068359375") then map = "christmas_map_lane1" end
+
+        if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 419.4320068359375" 
+        and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 443.4320068359375" 
+        and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "") then map = "christmas_map_lane2" end
+
+        if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 419.4320068359375" 
+        and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 443.4320068359375" 
+        and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 323.4320068359375") then map = "christmas_map_lane3" end
+
+        if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 419.4320068359375" 
+        and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 419.4320068359375" 
+        and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 299.4320068359375") then map = "christmas_map_lane4" end
+
+        if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 443.4320068359375" 
+        and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 443.4320068359375" 
+        and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 299.4320068359375") then map = "christmas_map_lane5" end
+
+
+
+
+
         if map == "jjk_raid" then map = "jjk" end
         if map == "jjk_finger" then map = "jjk" end
         if map == "karakura" and map2 == "csm_city" then map = "csm_city" end
@@ -5784,7 +5891,6 @@ function PlacePos(map,name,_uuid,unit)
         if map2 == "uchiha_halloween" then map = "uchiha_hideout_final" end
         if map2 == "entertainment_halloween" then map = "entertainment_district" end
         if map2 == "entertainment_district_halloween" then map = "entertainment_district" end
-        if map2 == "christmas_map" then map = "christmas_map" end
 
         if Mapname == "Infinity Castle" then map = map2 end
         local pos = Settings[map][unit]
@@ -6208,6 +6314,29 @@ function PlaceUnitsTEST(map,name,_uuid,unit)
     local Mapname = GetLevelData.name
 
     --fixmm
+    --Christmas2024
+    if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 443.4320068359375" 
+    and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 419.4320068359375" 
+    and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 323.4320068359375") then map = "christmas_map_lane1" end
+
+    if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 419.4320068359375" 
+    and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 443.4320068359375" 
+    and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "") then map = "christmas_map_lane2" end
+
+    if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 419.4320068359375" 
+    and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 443.4320068359375" 
+    and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 323.4320068359375") then map = "christmas_map_lane3" end
+
+    if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 419.4320068359375" 
+    and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 419.4320068359375" 
+    and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 299.4320068359375") then map = "christmas_map_lane4" end
+
+    if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 443.4320068359375" 
+    and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 443.4320068359375" 
+    and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 299.4320068359375") then map = "christmas_map_lane5" end
+
+
+
     if map == "jjk_raid" then map = "jjk" end
     if map == "jjk_finger" then map = "jjk" end
     if map == "karakura" and map2 == "csm_city" then map = "csm_city" end
@@ -6248,7 +6377,6 @@ function PlaceUnitsTEST(map,name,_uuid,unit)
     if map2 == "uchiha_halloween" then map = "uchiha_hideout_final" end
     if map2 == "entertainment_halloween" then map = "entertainment_district" end
     if map2 == "entertainment_district_halloween" then map = "entertainment_district" end
-    if map2 == "christmas_map" then map = "christmas_map" end
 
     if Mapname == "Infinity Castle" then map = map2 end
 
@@ -6423,6 +6551,29 @@ function PlaceUnits(map)
                     local Mapname = GetLevelData.name
 
                     --fixmm
+                    --Christmas2024
+                    if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 443.4320068359375" 
+                    and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 419.4320068359375" 
+                    and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 323.4320068359375") then map = "christmas_map_lane1" end
+
+                    if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 419.4320068359375" 
+                    and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 443.4320068359375" 
+                    and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "") then map = "christmas_map_lane2" end
+
+                    if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 419.4320068359375" 
+                    and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 443.4320068359375" 
+                    and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 323.4320068359375") then map = "christmas_map_lane3" end
+
+                    if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 419.4320068359375" 
+                    and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 419.4320068359375" 
+                    and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 299.4320068359375") then map = "christmas_map_lane4" end
+
+                    if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 443.4320068359375" 
+                    and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 443.4320068359375" 
+                    and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 299.4320068359375") then map = "christmas_map_lane5" end
+
+
+
                     if map == "jjk_raid" then map = "jjk" end
                     if map == "jjk_finger" then map = "jjk" end
                     if map == "karakura" and map2 == "csm_city" then map = "csm_city" end
@@ -6463,7 +6614,6 @@ function PlaceUnits(map)
                     if map2 == "uchiha_halloween" then map = "uchiha_hideout_final" end
                     if map2 == "entertainment_halloween" then map = "entertainment_district" end
                     if map2 == "entertainment_district_halloween" then map = "entertainment_district" end
-                    if map2 == "christmas_map" then map = "christmas_map" end
 
                     if Mapname == "Infinity Castle" then map = map2 end
                     local unitinfo_ = unitinfo:split(" #")
@@ -6575,6 +6725,28 @@ coroutine.resume(coroutine.create(function()
             --if game.Workspace:FindFirstChild("_map") then
 
                 --fixmm
+                --Christmas2024
+                if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 443.4320068359375" 
+                and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 419.4320068359375" 
+                and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 323.4320068359375") then map = "christmas_map_lane1" end
+
+                if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 419.4320068359375" 
+                and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 443.4320068359375" 
+                and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "") then map = "christmas_map_lane2" end
+
+                if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 419.4320068359375" 
+                and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 443.4320068359375" 
+                and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 323.4320068359375") then map = "christmas_map_lane3" end
+
+                if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 419.4320068359375" 
+                and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 419.4320068359375" 
+                and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 299.4320068359375") then map = "christmas_map_lane4" end
+
+                if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 443.4320068359375" 
+                and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 443.4320068359375" 
+                and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 299.4320068359375") then map = "christmas_map_lane5" end
+
+
                 if map == "jjk_raid" then map = "jjk" end
                 if map == "jjk_finger" then map = "jjk" end
                 if map == "karakura" and map2 == "csm_city" then map = "csm_city" end
@@ -6615,7 +6787,6 @@ coroutine.resume(coroutine.create(function()
                 if map2 == "uchiha_halloween" then map = "uchiha_hideout_final" end
                 if map2 == "entertainment_halloween" then map = "entertainment_district" end
                 if map2 == "entertainment_district_halloween" then map = "entertainment_district" end
-                if map2 == "christmas_map" then map = "christmas_map" end
 
                 if Mapname == "Infinity Castle" then map = map2 end
 
@@ -6645,6 +6816,30 @@ coroutine.resume(coroutine.create(function()
             --if game.Workspace:FindFirstChild("_map") then
 
                 --fixmm
+                --Christmas2024
+                if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 443.4320068359375" 
+                and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 419.4320068359375" 
+                and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 323.4320068359375") then map = "christmas_map_lane1" end
+
+                if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 419.4320068359375" 
+                and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 443.4320068359375" 
+                and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "") then map = "christmas_map_lane2" end
+
+                if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 419.4320068359375" 
+                and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 443.4320068359375" 
+                and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 323.4320068359375") then map = "christmas_map_lane3" end
+
+                if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "445.6319885253906, 45.859954833984375, 419.4320068359375" 
+                and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 419.4320068359375" 
+                and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "325.6319885253906, 45.859954833984375, 299.4320068359375") then map = "christmas_map_lane4" end
+
+                if  Mapname == "Holiday Hunt" or map2 == "christmas_map" and (game.workspace._BASES.player.LANES["1"].final.CFrame.Position == "469.6319885253906, 45.859954833984375, 443.4320068359375" 
+                and game.workspace._BASES.player.LANES["2"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 443.4320068359375" 
+                and game.workspace._BASES.player.LANES["3"].final.CFrame.Position == "349.6319885253906, 45.859954833984375, 299.4320068359375") then map = "christmas_map_lane5" end
+
+
+                
+
                 if map == "jjk_raid" then map = "jjk" end
                 if map == "jjk_finger" then map = "jjk" end
                 if map == "karakura" and map2 == "csm_city" then map = "csm_city" end
@@ -6685,8 +6880,6 @@ coroutine.resume(coroutine.create(function()
                 if map2 == "uchiha_halloween" then map = "uchiha_hideout_final" end
                 if map2 == "entertainment_halloween" then map = "entertainment_district" end
                 if map2 == "entertainment_district_halloween" then map = "entertainment_district" end
-                if map2 == "christmas_map" then map = "christmas_map" end
-                
 
                 if Mapname == "Infinity Castle" then map = map2 end
 
@@ -7246,29 +7439,6 @@ pcall(function()
     warn("TEST Display Error Hider!!!")
 end)
 
---start function mute Error
---disms
-if game.PlaceId ~= 8304191830 then
-    game:GetService("ReplicatedStorage").packages.assets["ui_sfx"].error.Volume = 0
-    game:GetService("ReplicatedStorage").packages.assets["ui_sfx"].error_old.Volume = 0
-    game.Players.LocalPlayer.PlayerGui.MessageGui.Enabled = false --disables the annoying error messages 
-end
-
---disms
-if game.PlaceId == 8304191830 then
-    game:GetService("ReplicatedStorage").packages.assets["ui_sfx"].error.Volume = 0
-    game:GetService("ReplicatedStorage").packages.assets["ui_sfx"].error_old.Volume = 0
-    game.Players.LocalPlayer.PlayerGui.MessageGui.Enabled = false --disables the annoying error messages 
-end
-
---End of function mute Error
-
-warn("Update Check ...!!!")
-warn("Anti-AFK Loaded!!!")
-warn("Hider Name Loaded!!!")
-warn("OMG Hub Loaded!!!")
-warn("All Loaded !!!")
-
 for _, v in ipairs(game:GetService("CoreGui"):GetChildren()) do
     if v.Name == "ELGATO HUB ON/OFF" or v.Name == "ELGATO TIME" then
         v:Destroy()
@@ -7329,10 +7499,25 @@ spawn(function()
     end
 end)
 
-if game.PlaceId == 8304191830 then
-    repeat task.wait(0.5) until Workspace:WaitForChild(game.Players.LocalPlayer.Name)
-    checkInterNet()
-elseif game.PlaceId ~= 8304191830 then
-    repeat task.wait(0.5) until Workspace:WaitForChild("_terrain")
-    checkInterNet()
+--start function mute Error
+--disms
+if game.PlaceId ~= 8304191830 then
+    game:GetService("ReplicatedStorage").packages.assets["ui_sfx"].error.Volume = 0
+    game:GetService("ReplicatedStorage").packages.assets["ui_sfx"].error_old.Volume = 0
+    game.Players.LocalPlayer.PlayerGui.MessageGui.Enabled = false --disables the annoying error messages 
 end
+
+--disms
+if game.PlaceId == 8304191830 then
+    game:GetService("ReplicatedStorage").packages.assets["ui_sfx"].error.Volume = 0
+    game:GetService("ReplicatedStorage").packages.assets["ui_sfx"].error_old.Volume = 0
+    game.Players.LocalPlayer.PlayerGui.MessageGui.Enabled = false --disables the annoying error messages 
+end
+    
+    if game.PlaceId == 8304191830 then
+        repeat task.wait(0.5) until Workspace:WaitForChild(game.Players.LocalPlayer.Name)
+        checkInterNet()
+    elseif game.PlaceId ~= 8304191830 then
+        repeat task.wait(0.5) until Workspace:WaitForChild("_terrain")
+        checkInterNet()
+    end
