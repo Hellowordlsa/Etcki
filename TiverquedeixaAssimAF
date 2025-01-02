@@ -342,12 +342,12 @@ function webhook()
 
         local data = {
             ["content"] = "",
-            ["username"] = "Anime Adventures V2",
+            ["username"] = "OMG Hub | Anime Adventures",
             ["avatar_url"] = "https://tr.rbxcdn.com/180DAY-a4dda77cbeb2a02523deb6c49ece2ce4/256/256/Image/png/noFilter",
             ["embeds"] = {
                 {
                     ["author"] = {
-                        ["name"] = "Anime Adventures |  Results V2 ✔️",
+                        ["name"] = "OMG Hub | Anime Adventures |  Results✔️",
                         ["icon_url"] = "https://cdn.discordapp.com/emojis/997123585476927558.webp?size=96&quality=lossless"
                     },
                     ["thumbnail"] = {
@@ -454,7 +454,7 @@ function BabyWebhook()
 
 		local data = {
             ["content"] = "",
-                ["username"] = "Anime Adventures V2",
+                ["username"] = "OMG Hub | Anime Adventures",
                 ["avatar_url"] = "https://tr.rbxcdn.com/5c9e29b3953ec061286e76f08f1718b3/150/150/Image/Png",
                 ["embeds"] = {
                     {
@@ -537,7 +537,7 @@ function SpecialSummonSniperWebhook()
 
 		local data = {
             ["content"] = "",
-                ["username"] = "Anime Adventures V2",
+                ["username"] = "OMG Hub | Anime Adventures",
                 ["avatar_url"] = "https://tr.rbxcdn.com/5c9e29b3953ec061286e76f08f1718b3/150/150/Image/Png",
                 ["embeds"] = {
                     {
@@ -619,7 +619,7 @@ function StandardSummonSniperWebhook()
 
 		local data = {
             ["content"] = "",
-                ["username"] = "Anime Adventures V2",
+                ["username"] = "OMG Hub | Anime Adventures",
                 ["avatar_url"] = "https://tr.rbxcdn.com/5c9e29b3953ec061286e76f08f1718b3/150/150/Image/Png",
                 ["embeds"] = {
                     {
@@ -685,7 +685,7 @@ function ShopSniperWebhook()
 
 		local data = {
             ["content"] = "",
-                ["username"] = "Anime Adventures V2",
+                ["username"] = "OMG Hub | Anime Adventures",
                 ["avatar_url"] = "https://tr.rbxcdn.com/5c9e29b3953ec061286e76f08f1718b3/150/150/Image/Png",
                 ["embeds"] = {
                     {
@@ -758,11 +758,11 @@ end
 local dir = "Anime_Adventures/"..game.Players.LocalPlayer.Name
 local Uilib = loadstring(game:HttpGet("https://raw.githubusercontent.com/ArponAG/Scripts/main/finitylibTEST"))()
 local exec = tostring(identifyexecutor())
-local Window = Uilib.new(true, "OMG Hub | Anime Adventure "..version.." - "..exec)
+local Window = Uilib.new(true, "OMG Hub | Anime Adventures "..version.." - "..exec)
 Window.ChangeToggleKey(Enum.KeyCode.RightControl)
 
 local Home = Window:Category("🏠 Home")
-local Developers = Home:Sector("Anime Adventure")
+local Developers = Home:Sector("Anime Adventures")
 local asdasd = Home:Sector(" ")
 local UIUPDT = Home:Sector("⚙️ Challenge Config ⚙️")
 
@@ -3491,7 +3491,7 @@ task.spawn(function()
 
                 local data = {
                     ["content"] = "",
-                    ["username"] = "Anime Adventures V2",
+                    ["username"] = "OMG Hub| Anime Adventures",
                     ["avatar_url"] = "https://tr.rbxcdn.com/180DAY-a4dda77cbeb2a02523deb6c49ece2ce4/256/256/Image/png/noFilter",
                     ["embeds"] = {
                         {
