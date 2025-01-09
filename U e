@@ -135,6 +135,17 @@ spawn(function()
     end
 end)
 
+function autoload()
+    pcall(function()
+    local exec = tostring(identifyexecutor())
+    if exec == "Synapse X" then
+        syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Hellowordlsa/Etcki/refs/heads/main/U%20e'))()")
+    else
+        queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Hellowordlsa/Etcki/refs/heads/main/U%20e'))()")
+    end
+    end)
+end
+
 -- Mã gốc của bạn, với chức năng nhặt trái cây và thông báo:
 repeat
     wait()
@@ -229,19 +240,6 @@ for f, f in next, workspace:GetChildren() do
             a
         )
     end
-end
-
-autoload()
-
-function autoload()
-    pcall(function()
-    local exec = tostring(identifyexecutor())
-    if exec == "Synapse X" then
-        syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Hellowordlsa/Etcki/refs/heads/main/U%20e'))()")
-    else
-        queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Hellowordlsa/Etcki/refs/heads/main/U%20e'))()")
-    end
-    end)
 end
 
 -- Nếu không có trái cây, thông báo "Không tìm thấy trái trong server"
@@ -370,6 +368,7 @@ repeat
     )
     wait()
 until game.JobId ~= a
+autoload()
 function PostWebhook(Url, message)
     local request = http_request or request or HttpPost or syn.request
     local data =
