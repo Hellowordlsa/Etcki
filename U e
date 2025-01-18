@@ -1,6 +1,5 @@
 local placeId = game.PlaceId
 local jobId = game.JobId
-
 local sea1 = 2753915549
 local sea2 = 4442272183
 local sea3 = 7449423635
@@ -16,58 +15,8 @@ else
     CheckSea = "unknown sea"
 end
 
-local Players = game:GetService("Players")
-local playerCount = #game:GetService("Players"):GetPlayers()
-
-local hwid = game:GetService("RbxAnalyticsService"):GetClientId()
-local ExecutorUsing = identifyexecutor()
-local HttpService = game:GetService("HttpService")
-local Data =
-{
-    ["embeds"] = {
-        {
-            ["title"] = "Script Auto Nhặt Fruit By: TT1403", 
-            ["url"] = "https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId,
-            ["description"] = "",  -- Xóa phần hiển thị UserId
-            ["color"] = tonumber("0xf7c74b"),
-            ["thumbnail"] = {["url"] = ""},
-            ["fields"] = {
-                {
-                    ["name"] = "Name:",
-                    ["value"] = "```"..game.Players.LocalPlayer.DisplayName.."```",  -- Thêm tên người chơi vào đây
-                    ["inline"] = true
-                },
-                {
-                    ["name"] = "Acc:",
-                    ["value"] = "```"..game.Players.LocalPlayer.Name.."```",  -- Thêm tên tài khoản vào đây
-                    ["inline"] = true
-                },
-                {
-                    ["name"] = "Execute:",
-                    ["value"] = "```"..ExecutorUsing.."```",
-                    ["inline"] = true
-                },
-                {
-                    ["name"] = "Sea:",
-                    ["value"] = "```" .. CheckSea.."```", 
-                    ["inline"] = true
-                }
-            },
-            ["timestamp"] = os.date("!%Y-%m-%dT%H:%M:%S") -- Thêm thời gian vào đây
-        }
-    }
-}
-
-local Headers = {["Content-Type"] = "application/json"}
-local Encoded = HttpService:JSONEncode(Data)
-
-local Request = http_request or request or HttpPost or syn.request
-local Final = {Url = "https://zalo.me/g/fjnkkx106", Body = Encoded, Method = "POST", Headers = Headers}
-Request(Final)
-
--- Thông Báo 
 require(game.ReplicatedStorage:WaitForChild("Notification")).new(
-            "TT1403 Hub ~ Auto Nhặt Fruit"
+            "OMG Hub ~ Auto Find Fruit"
         ):Display()
 -- Thông Báo 
 require(game.ReplicatedStorage:WaitForChild("Notification")).new(
@@ -135,17 +84,6 @@ spawn(function()
     end
 end)
 
-function autoload()
-    pcall(function()
-    local exec = tostring(identifyexecutor())
-    if exec == "Synapse X" then
-        syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Hellowordlsa/Etcki/refs/heads/main/U%20e'))()")
-    else
-        queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Hellowordlsa/Etcki/refs/heads/main/U%20e'))()")
-    end
-    end)
-end
-
 -- Mã gốc của bạn, với chức năng nhặt trái cây và thông báo:
 repeat
     wait()
@@ -187,29 +125,20 @@ for f, f in next, workspace:GetChildren() do
         game.StarterGui:SetCore(
             "SendNotification",
             {
-                Title = "TT1403 Hub",
-                Text = "Đang Nhặt Fruit",
+                Title = "OMG Hub",
+                Text = "Found Fruit",
                 Duration = 10
             }
         )
         
         repeat
-            local d = d:Clone()
-            d.Parent = b.HumanoidRootPart
-            local e = e:Clone()
-            e.Parent = b.HumanoidRootPart
-            local a =
-                c:Create(
-                b.HumanoidRootPart,
-                TweenInfo.new((a:DistanceFromCharacter(f.Handle.Position) - 150) / 300, Enum.EasingStyle.Linear),
-                {CFrame = f.Handle.CFrame + Vector3.new(0, f.Handle.Size.Y, 0)}
-            )
-            a:Play()
-            a.Completed:Wait()
-            b.HumanoidRootPart.CFrame = f.Handle.CFrame
-            d:Destroy()
-            e:Destroy()
-            wait(1)
+            for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+    if string.find(v.Name, "Fruit") then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Handle.CFrame
+    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,v.Handle,0)
+    end
+    end
+            wait(.5)
         until f.Parent ~= workspace
         wait(1)
 
@@ -217,8 +146,8 @@ for f, f in next, workspace:GetChildren() do
         game.StarterGui:SetCore(
             "SendNotification",
             {
-                Title = "TT1403",
-                Text = "Đã Nhặt Fruit: " .. f.Name,
+                Title = "OMG Hub",
+                Text = "Fruit: " .. f.Name,
                 Duration = 10
             }
         )
@@ -247,8 +176,8 @@ if not fruitsFound then
     game.StarterGui:SetCore(
         "SendNotification",
         {
-            Title = "TT1403 Hub",
-            Text = "Không Có Fruit",
+            Title = "OMG Hub",
+            Text = "Not Found Fruit",
             Duration = 5
         }
     )
@@ -349,36 +278,7 @@ repeat
                     )
                 end
             end
-
-            -- Kiểm tra và thông báo chỉ một lần khi đổi server
-            if not serverHopNotified then
-                game.StarterGui:SetCore(
-                    "SendNotification",
-                    {
-                        Title = "TT1403 Hub",
-                        Text = "Đang Đổi Sever...",
-                        Duration = 10
-                    }
-                )
-                serverHopNotified = true  -- Đánh dấu là đã thông báo
-            end
-
-            Teleport()
         end
     )
     wait()
 until game.JobId ~= a
-autoload()
-function PostWebhook(Url, message)
-    local request = http_request or request or HttpPost or syn.request
-    local data =
-        request(
-        {
-            Url = Url,
-            Method = "POST",
-            Headers = {["Content-Type"] = "application/json"},
-            Body = game:GetService("HttpService"):JSONEncode(message)
-        }
-    )
-    return ""
-end
